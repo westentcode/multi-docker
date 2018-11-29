@@ -9,7 +9,7 @@ script:
   - docker run westentcode/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t westentcode/multi-client ./client/Dockerfile.dev
+  - docker build -t westentcode/multi-client ./client
   - docker build -t westentcode/multi-nginx ./nginx
   - docker build -t westentcode/multi-server ./server
   - docker build -t westentcode/multi-worker ./worker
