@@ -9,14 +9,14 @@ script:
   - docker run westentcode/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t derekwwest/multi-client ./client/Dockerfile.dev
-  - docker build -t derekwwest/multi-nginx ./nginx
-  - docker build -t derekwwest/multi-server ./server
-  - docker build -t derekwwest/multi-worker ./worker
+  - docker build -t westentcode/multi-client ./client/Dockerfile.dev
+  - docker build -t westentcode/multi-nginx ./nginx
+  - docker build -t westentcode/multi-server ./server
+  - docker build -t westentcode/multi-worker ./worker
   #log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin
   #Take those images and push them to docker hub
-  - docker push -t derekwwest/multi-client
-  - docker push -t derekwwest/multi-nginx
-  - docker push -t derekwwest/multi-server
-  - docker push -t derekwwest/multi-worker
+  - docker push westentcode/multi-client
+  - docker push westentcode/multi-nginx
+  - docker push westentcode/multi-server
+  - docker push westentcode/multi-worker
