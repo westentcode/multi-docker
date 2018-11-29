@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t westentcode/multi-docker -f ./client/Dockerfile.dev
+
+script:
+  - docker run westentcode/multi-docker/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t westentcode/multi-client ./client/Dockerfile.dev
+  - docker build -t westentcode/multi-nginx ./nginx
+  - docker build -t westentcode/multi-server ./server
+  - docker build -t westentcode/multi-worker ./worker
+  #log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin
+  #Take those images and push them to docker hub
+  - docker push -t westentcode/multi-client
+  - docker push -t westentcode/multi-nginx
+  - docker push -t westentcode/multi-server
+  - docker push -t westentcode/multi-worker
