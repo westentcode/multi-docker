@@ -3,10 +3,10 @@ services:
   - docker
 
 before_install:
-  - docker build -t westentcode/multi-docker -f ./client/Dockerfile.dev
+  - docker build -t westentcode/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run westentcode/multi-docker/react-test npm test -- --coverage
+  - docker run westentcode/react-test npm test -- --coverage
 
 after_success:
   - docker build -t westentcode/multi-client ./client/Dockerfile.dev
